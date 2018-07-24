@@ -26,9 +26,9 @@ public class ArchiveController {
     ) {
         List<Archive> archiveList;
         if (open == 1) {
-            archiveList = archiveMapper.selectAllWithOpenData(sortby, order);
+            archiveList = archiveMapper.selectAllWithOpenData(0, sortby, order);
         } else {
-            archiveList = archiveMapper.selectAll(sortby, order);
+            archiveList = archiveMapper.selectAll(0, sortby, order);
         }
         if (!with.isEmpty()) {
             String[] withs = with.split(",");

@@ -28,7 +28,7 @@ public class ArticleController {
     public ApiResponse articles(
             @RequestParam(name = "sortby", defaultValue = "date") String sortby,
             @RequestParam(name = "order", defaultValue = "asc") String order,
-            @RequestParam(name = "page", defaultValue = "1") Integer page,
+            @RequestParam(name = "page", defaultValue = "0") Integer page,
             @RequestParam(name = "limit", defaultValue = "20") Integer limit
     ) {
         List<Article> articleList = articleMapper.selectAll(sortby, order, page, limit);

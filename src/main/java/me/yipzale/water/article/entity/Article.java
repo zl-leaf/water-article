@@ -1,8 +1,8 @@
 package me.yipzale.water.article.entity;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import me.yipzale.water.article.util.DateJsonDeserializer;
@@ -115,7 +115,7 @@ public class Article {
         return content;
     }
 
-    @JsonGetter("content")
+    @JsonProperty("content")
     public ArticleContent articleContent() {
         return content;
     }

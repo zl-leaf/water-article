@@ -37,7 +37,8 @@ public interface ArchiveMapper {
         "select",
         "id, title, alias, path, parent_id, created_at",
         "from archives",
-        "order by #{sortby} #{order}"
+        "where parent_id = #{parentId,jdbcType=INTEGER}",
+        "order by ${sortby} ${order}"
     })
     @Results({
             @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
@@ -48,7 +49,7 @@ public interface ArchiveMapper {
             @Result(column="created_at", property="createdAt", jdbcType=JdbcType.TIMESTAMP),
             @Result(column = "id", property = "articles", many = @Many(select = "me.yipzale.water.article.mapper.ArticleMapper.selectByArchiveId", fetchType = FetchType.LAZY))
     })
-    List<Archive> selectAll(@Param("sortby") String sortby, @Param("order") String order);
+    List<Archive> selectAll(@Param("parentId") Integer parentId, @Param("sortby") String sortby, @Param("order") String order);
 
     @Select({
             "select",
@@ -71,7 +72,8 @@ public interface ArchiveMapper {
             "select",
             "id, title, alias, path, parent_id, created_at",
             "from archives",
-            "order by #{sortby} #{order}"
+            "where parent_id = #{parentId,jdbcType=INTEGER}",
+            "order by ${sortby} ${order}"
     })
     @Results({
             @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
@@ -83,6 +85,6 @@ public interface ArchiveMapper {
             @Result(column = "id", property = "archiveNodes", many = @Many(select = "selectByParentId", fetchType = FetchType.EAGER)),
             @Result(column = "id", property = "articles", many = @Many(select = "me.yipzale.water.article.mapper.ArticleMapper.selectByArchiveId", fetchType = FetchType.LAZY))
     })
-    List<Archive> selectAllWithOpenData(@Param("sortby") String sortby, @Param("order") String order);
+    List<Archive> selectAllWithOpenData(@Param("parentId") Integer parentId, @Param("sortby") String sortby, @Param("order") String order);
 
 }
