@@ -15,6 +15,12 @@ eureka:
 
 mybatis:
   type-aliases-package: me.yipzale.water.article.entity
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  config-location: classpath:mybatis/mybatis-config.xml
+
+#logging:
+#  level:
+#    me.yipzale.water.article.mapper: DEBUG
 
 datasource:
   master:
