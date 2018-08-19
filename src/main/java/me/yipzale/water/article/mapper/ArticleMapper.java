@@ -1,6 +1,10 @@
 package me.yipzale.water.article.mapper;
 
 import java.util.List;
+import java.util.Map;
+
+import me.yipzale.water.article.mybatis.sql.QueryBuilder;
+import me.yipzale.water.article.database.QueryProvider;
 import me.yipzale.water.article.entity.Article;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
@@ -42,21 +46,7 @@ public interface ArticleMapper {
         "from articles",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="archive_id", property="archiveId", jdbcType=JdbcType.INTEGER),
-        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
-        @Result(column="slug", property="slug", jdbcType=JdbcType.VARCHAR),
-        @Result(column="keywords", property="keywords", jdbcType=JdbcType.VARCHAR),
-        @Result(column="created_at", property="createdAt", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="updated_at", property="updatedAt", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="summary", property="summary", jdbcType=JdbcType.VARCHAR),
-        @Result(column="date", property="date", jdbcType=JdbcType.TIMESTAMP),
-        @Result(
-                column = "id",
-                property = "content",
-                one = @One(select = "me.yipzale.water.article.mapper.ArticleContentMapper.selectByArticleId", fetchType = FetchType.LAZY))
-    })
+    @ResultMap("articleMap")
     Article selectByPrimaryKey(Integer id);
 
     @Select({
@@ -65,38 +55,12 @@ public interface ArticleMapper {
             "from articles",
             "where slug = #{slug,jdbcType=VARCHAR}"
     })
-    @Results({
-            @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-            @Result(column="archive_id", property="archiveId", jdbcType=JdbcType.INTEGER),
-            @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
-            @Result(column="slug", property="slug", jdbcType=JdbcType.VARCHAR),
-            @Result(column="keywords", property="keywords", jdbcType=JdbcType.VARCHAR),
-            @Result(column="created_at", property="createdAt", jdbcType=JdbcType.TIMESTAMP),
-            @Result(column="updated_at", property="updatedAt", jdbcType=JdbcType.TIMESTAMP),
-            @Result(column="summary", property="summary", jdbcType=JdbcType.VARCHAR),
-            @Result(column="date", property="date", jdbcType=JdbcType.TIMESTAMP)
-    })
+    @ResultMap("articleMap")
     Article selectBySlug(String slug);
 
-    @Select({
-        "select",
-        "id, archive_id, title, slug, keywords, created_at, updated_at, summary, date",
-        "from articles",
-        "order by ${sortby} ${order}",
-        "limit #{page,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}"
-    })
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="archive_id", property="archiveId", jdbcType=JdbcType.INTEGER),
-        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
-        @Result(column="slug", property="slug", jdbcType=JdbcType.VARCHAR),
-        @Result(column="keywords", property="keywords", jdbcType=JdbcType.VARCHAR),
-        @Result(column="created_at", property="createdAt", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="updated_at", property="updatedAt", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="summary", property="summary", jdbcType=JdbcType.VARCHAR),
-        @Result(column="date", property="date", jdbcType=JdbcType.TIMESTAMP)
-    })
-    List<Article> selectAll(@Param("sortby") String sortby,@Param("order") String order,@Param("page") Integer page,@Param("limit") Integer limit);
+    @SelectProvider(type = QueryProvider.class, method = "select")
+    @ResultMap("articleMap")
+    List<Article> select(QueryBuilder builder);
 
     @Select({
             "select",
@@ -104,17 +68,7 @@ public interface ArticleMapper {
             "from articles",
             "where archive_id = #{archiveId, jdbcType=INTEGER}"
     })
-    @Results({
-            @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-            @Result(column="archive_id", property="archiveId", jdbcType=JdbcType.INTEGER),
-            @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
-            @Result(column="slug", property="slug", jdbcType=JdbcType.VARCHAR),
-            @Result(column="keywords", property="keywords", jdbcType=JdbcType.VARCHAR),
-            @Result(column="created_at", property="createdAt", jdbcType=JdbcType.TIMESTAMP),
-            @Result(column="updated_at", property="updatedAt", jdbcType=JdbcType.TIMESTAMP),
-            @Result(column="summary", property="summary", jdbcType=JdbcType.VARCHAR),
-            @Result(column="date", property="date", jdbcType=JdbcType.TIMESTAMP)
-    })
+    @ResultMap("articleMap")
     List<Article> selectByArchiveId(Integer archiveId);
 
 }

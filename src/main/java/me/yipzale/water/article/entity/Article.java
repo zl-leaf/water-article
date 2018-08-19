@@ -22,8 +22,12 @@ public class Article {
 
     private String keywords;
 
+    @JsonSerialize(using=DateJsonSerializer.class)
+    @JsonDeserialize(using=DateJsonDeserializer.class)
     private Date createdAt;
 
+    @JsonSerialize(using=DateJsonSerializer.class)
+    @JsonDeserialize(using=DateJsonDeserializer.class)
     private Date updatedAt;
 
     private String summary;

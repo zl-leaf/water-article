@@ -1,5 +1,6 @@
 package me.yipzale.water.article.controller;
 
+import me.yipzale.water.article.mapper.ArticleQuery;
 import me.yipzale.water.article.entity.Article;
 import me.yipzale.water.article.entity.ArticleContent;
 import me.yipzale.water.article.mapper.ArticleContentMapper;
@@ -31,7 +32,9 @@ public class ArticleController {
             @RequestParam(name = "page", defaultValue = "0") Integer page,
             @RequestParam(name = "limit", defaultValue = "20") Integer limit
     ) {
-        List<Article> articleList = articleMapper.selectAll(sortby, order, page, limit);
+        ArticleQuery query = new ArticleQuery();
+        query.orderBy(sortby, order).limit(page, limit);
+        List<Article> articleList = articleMapper.select(query);
         ApiResponse response = new ApiResponse(0, "success", articleList);
         return response;
     }

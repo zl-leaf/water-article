@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.yipzale.water.article.mapper.ArticleMapper">
+
+    <resultMap type="me.yipzale.water.article.entity.Article" id="articleMap">
+        <id column="id" property="id" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="archive_id" property="archiveId" jdbcType="INTEGER" />
+        <result column="slug" property="slug" jdbcType="VARCHAR" />
+        <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+        <result column="summary" property="summary" jdbcType="VARCHAR" />
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+        <association property="content" column="id" select="me.yipzale.water.article.mapper.ArticleContentMapper.selectByArticleId"/>
+    </resultMap>
+</mapper>

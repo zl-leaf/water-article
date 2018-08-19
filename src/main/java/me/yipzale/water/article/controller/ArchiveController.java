@@ -2,6 +2,8 @@ package me.yipzale.water.article.controller;
 
 import me.yipzale.water.article.entity.Archive;
 import me.yipzale.water.article.mapper.ArchiveMapper;
+import me.yipzale.water.article.mapper.ArchiveQuery;
+import org.apache.ibatis.type.JdbcType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,11 +27,12 @@ public class ArchiveController {
             @RequestParam(name = "_with", defaultValue = "") String with
     ) {
         List<Archive> archiveList;
+        ArchiveQuery query = new ArchiveQuery();
+        query.where("parentId", 0, JdbcType.INTEGER);
         if (open == 1) {
-            archiveList = archiveMapper.selectAllWithOpenData(0, sortby, order);
-        } else {
-            archiveList = archiveMapper.selectAll(0, sortby, order);
+            query.with(ArchiveQuery.WITH_ARCHIVE_NODES);
         }
+        archiveList = archiveMapper.select(query);
         if (!with.isEmpty()) {
             String[] withs = with.split(",");
             List<String> withList = Arrays.asList(withs);
