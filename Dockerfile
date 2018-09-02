@@ -1,9 +1,9 @@
 FROM maven
 
-VOLUME ["/opt/htdoc/water-article"]
-
-WORKDIR /opt/htdoc/water-article
+RUN mkdir -p /opt/app
+ADD ./target/water-article.jar /opt/app/
+WORKDIR /opt/app
 
 EXPOSE 8080
 
-CMD mvn install && java -jar ./target/water-article.jar
+CMD java -jar ./water-article.jar
