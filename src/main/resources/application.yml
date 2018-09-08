@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: water-article
+  datasource:
+          driver-class-name: com.mysql.jdbc.Driver
+          url:
+          username:
+          password:
 
 eureka:
   client:
@@ -18,14 +23,3 @@ mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   config-location: classpath:mybatis/mybatis-config.xml
 
-datasource:
-  master:
-    url:
-    driver-class-name: com.mysql.jdbc.Driver
-    username:
-    password:
-  slave:
-    - url:
-      driver-class-name: com.mysql.jdbc.Driver
-      username:
-      password:
