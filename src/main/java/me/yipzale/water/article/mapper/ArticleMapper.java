@@ -1,14 +1,10 @@
 package me.yipzale.water.article.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import me.yipzale.water.article.mybatis.sql.QueryBuilder;
-import me.yipzale.water.article.database.QueryProvider;
 import me.yipzale.water.article.entity.Article;
 import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.mapping.FetchType;
-import org.apache.ibatis.type.JdbcType;
 
 public interface ArticleMapper {
 

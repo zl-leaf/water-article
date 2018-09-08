@@ -1,8 +1,6 @@
 package me.yipzale.water.article.mapper;
 
-import java.util.List;
 import me.yipzale.water.article.entity.ArticleContent;
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
