@@ -1,5 +1,6 @@
 .idea
 target
 application-*.yml
+bootstrap-*.yml
 *.iml
 .DS_Store

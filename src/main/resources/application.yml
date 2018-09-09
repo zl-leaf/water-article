@@ -5,10 +5,10 @@ spring:
   application:
     name: water-article
   datasource:
-          driver-class-name: com.mysql.jdbc.Driver
-          url:
-          username:
-          password:
+    driver-class-name: com.mysql.jdbc.Driver
+    url:
+    username:
+    password:
 
 eureka:
   client:
